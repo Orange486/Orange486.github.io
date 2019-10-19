@@ -1,0 +1,118 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><link rel="stylesheet" type="text/css" href="//fonts.loli.net/css?family=Source+Code+Pro"><link rel="stylesheet" type="text/css" href="/css/style-dark.css?v=2.0.4"><link rel="stylesheet" type="text/css" href="/css/highlight-dark.css?v=2.0.4"><link rel="Shortcut Icon" href="/favicon.ico"><link rel="bookmark" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><title>JSP的九大内置对象 | Orange</title></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">JSP的九大内置对象</h1><a id="logo" href="/.">Orange</a><p class="description"></p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a><a href="/atom.xml"><i class="fa fa-rss"> 订阅</i></a></div><div id="search-form"><div id="result-mask" class="hide"></div><label><input id="search-key" type="text" autocomplete="off" placeholder="搜索"></label><div id="result-wrap" class="hide"><div id="search-result"></div></div><div class="hide"><template id="search-tpl"><div class="item"><a href="/{path}" title="{title}"><div class="title">{title}</div><div class="time">{date}</div><div class="tags">{tags}</div></a></div></template></div></div></div><div id="layout" class="layout-g"><div class="layout-l"><div class="content_container"><div class="post"><h1 class="post-title">JSP的九大内置对象</h1><div class="post-meta"><a href="/2019/10/19/JSP的九大内置对象/#comments" class="comment-count"></a><p><span class="date">Oct 19, 2019</span><span><i id="busuanzi_container_page_pv"><i id="busuanzi_value_page_pv"></i><i>点击</i></i></span></p></div><div class="post-content"><p>​    每个jsp页面在第一次被访问时，WEB容器会把请求交给JSP引擎去处理。JSP引擎先将JSP翻译成一个_JSPServlet(本质也是Servlet)，然后按照servlet的调用方式来进行调用。<br>    由于JSP第一次访问时会翻译成servlet，所以第一次访问会比较慢，但第二次访问，如果JSP引擎发现现JSP没有变化，就不再翻译，而是直接调用，所以程序的执行效率不会受到影响。<br>    JSP引擎在调用JSP对应的jspServlet时，会创建9个与web开发相关的对象供 -jspServlet使用。JSP技术的设计者为便于开发人员在编写JSP页面时获得这些web对象的引用，特意定义了9个相对应的变量，开发人员在JSP页面中通过这些变量可以快速获得这9大对象的引用。（By__博客，孤傲苍狼）</p>
+<table>
+<thead>
+<tr>
+<th>对象</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>request</td>
+<td>HttpServletRequest类的实例</td>
+</tr>
+<tr>
+<td>response</td>
+<td>HttpServletResponse类的实例</td>
+</tr>
+<tr>
+<td>session</td>
+<td>HttpSession类的实例</td>
+</tr>
+<tr>
+<td>application</td>
+<td>SercletContext类的实例，与应用上下文有关</td>
+</tr>
+<tr>
+<td>pageContext</td>
+<td>pageContext类的实例，提供JSP页面所有对象及命名空间的访问</td>
+</tr>
+<tr>
+<td>page</td>
+<td>类似于Java类中的this关键字</td>
+</tr>
+<tr>
+<td>out</td>
+<td>PrintWriter类的实例，用于把结果输出至网页上</td>
+</tr>
+<tr>
+<td>config</td>
+<td>ServletConfig类的实例</td>
+</tr>
+<tr>
+<td>execption</td>
+<td>Exception类的对象，代表发生错误的JSP页面对应的异常对象</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>request对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">每当客户端请求一个JSP页面时，JSP引擎就会制造一个新的request对象来代表这个请求。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>response对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">当服务器创建request对象时会同时创建用于响应这个客户端的response对象。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>out对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">out对象用来在response对象中写入内容。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>session对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">session对象时javax.servlet,http.HttpSession类的实例。和Java Servlet中的session（隐式对象）对应一致的行为。</span><br><span class="line">session对象用来跟踪在各个客户端请求间的会话。一次会话是从客户端打开浏览器开始到客户端关闭浏览器结束。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>application对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">application对象直接包装了servlet的servletContext类的对象，是javax.servlet.ServletConext类的实例。通过向application中添加属性，则所有组成web应用的JSP文件和Servlet都能访问到这些属性。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>config对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">config对象时javax.servlet.ServletConfig类的实例，直接包装了servlet的ServletConfig类的对象。这个对象允许开发者访问Servlet或者JSP引擎的初始化参数，比如文件路径等。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>page对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">这个对象就是页面实例的引用。它可以被看成是整个JSP页面的代表。page对象就是this对象的同义词。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>execption对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">execption对象包装了从先前页面抛出的异常信息。它通常被用来产生对出错条件的适当响应。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>pageContext对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">pageContext对象时javax》servlet.jsp.PageContext类的实例。</span><br><span class="line">1.可以用它获取其他八大内置对象：</span><br><span class="line">	out	pageContext.getOut();</span><br><span class="line">	request	pageContext.getRequest();</span><br><span class="line">	response pageContext.getResponse();</span><br><span class="line">	session pageContext.getSession();</span><br><span class="line">	application pageContext.getSession();</span><br><span class="line">	config pageContext.getConfig();</span><br><span class="line">	exception pageContext.getException();</span><br><span class="line">	page pageContext.getPage();</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>四个域对象</th>
+<th>作用范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pageContext对象</td>
+<td>page域：只能在当前jsp页面使用</td>
+</tr>
+<tr>
+<td>request对象</td>
+<td>request域：只能在同一个请求中使用这（转发）</td>
+</tr>
+<tr>
+<td>session对象</td>
+<td>session：只能在同一个会话（当前浏览器）</td>
+</tr>
+<tr>
+<td>application对象</td>
+<td>sontext域：只能在同一个weby应用中使用（全局）</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>域对象方法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>setAttribute(“name”,Object);保存数据</td>
+</tr>
+<tr>
+<td>getAttribute(“name”);获取数据</td>
+</tr>
+<tr>
+<td>removeAttribute(“name”);清楚数据</td>
+</tr>
+</tbody></table>
+</div><div class="post-copyright"><blockquote><p>原文作者: Orange</p><p>原文链接: <a href="https://orange486.com/2019/10/19/JSP的九大内置对象/">https://orange486.com/2019/10/19/JSP的九大内置对象/</a></p><p>版权声明: 转载请注明出处(必须保留作者署名及链接)</p></blockquote></div><div class="tags"></div><div class="post-share"><div class="social-share"><span>分享到:</span></div></div><div class="post-nav"><a href="/2019/09/24/web项目页面跳转失败/" class="next">web项目页面跳转失败</a></div><div id="comments"></div></div></div></div><div class="layout-r"><div id="sidebar"><div class="search-pla"></div><div id="toc" class="widget"><div class="widget-title"><i class="fa fa-fei">文章目录</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-xie"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/10/19/JSP的九大内置对象/">JSP的九大内置对象</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/24/web项目页面跳转失败/">web项目页面跳转失败</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/19/接口与抽象类的区别/">接口与抽象类的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/07/String-StringBuffer-StringBulider的区别/">String,StringBuffer,StringBulider的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/03/笔记二，==与equals区别/">笔记二，==与equals的区别</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/09/03/笔记一，String转换数组/">笔记一，String转换数组</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/08/31/我的第一篇测试文章/">我的第一篇测试文章</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-biao"> 标签</i></div><div class="tagcloud"></div></div><div class="widget"><div class="widget-title"><i class="fa fa-archive"> 归档</i></div><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-you"> 友情链接</i></div><ul></ul><a href="https://github.com/chaooo/hexo-theme-BlueLake" title="主题BlueLake" target="_blank">主题BlueLake</a></div></div></div></div><a id="totop" href="#top"></a><div id="footer"><div class="footer-info"><p><a href="/baidusitemap.xml">网站地图</a> |  <a href="/about/">联系博主</a></p><p>本站总访问量：<i id="busuanzi_container_site_pv"><i id="busuanzi_value_site_pv"></i></i>次，本站总访客数:<i id="busuanzi_container_site_uv"><i id="busuanzi_value_site_uv"></i></i>人</p><p><span> Copyright &copy;<a href="/." rel="nofollow">Orange.</a></span><span> Count by<a href="http://busuanzi.ibruce.info/"> busuanzi.</a></span></p></div></div></div><script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script><script type="text/javascript" src="/js/search.json.js?v=2.0.4"></script><script type="text/javascript" src="/js/toctotop.js?v=2.0.4" async></script><link rel="stylesheet" type="text/css" href="/share/css/share.css"><script type="text/javascript" src="/share/js/social-share.js" charset="utf-8"></script><script type="text/javascript" src="/share/js/qrcode.js" charset="utf-8"></script><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
